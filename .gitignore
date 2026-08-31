@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+*.log
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+.env
+.env.local
+
+# Models / large files
+*.onnx
+*.pt
+*.pth
+*.h5
+vision/models/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# AWS / credentials
+.aws/
+*.pem
+*credentials*
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+*.swp
