@@ -35,11 +35,11 @@ Frame → [Tier 1] Local detection (OpenCV 5) + confidence score
 
 ## Team
 
-**AI / Computer Vision Engineer - [codewithsami1234]**
-**Backend Engineer - [wyyyrdx]**
-**Frontend Engineer - [...]**
-**Hardware / Robotics Engineer - [basil2ay]**
-**AI Agent / AWS Engineer - [macaadaxmed5252-droid]**
+- **AI / Computer Vision Engineer - [codewithsami1234]**
+- **Backend Engineer - [wyyyrdx]**
+- **Frontend Engineer - [...]**
+- **Hardware / Robotics Engineer - [basil2ay]**
+- **AI Agent / AWS Engineer - [macaadaxmed5252-droid]**
 
 ## Status
 
