@@ -1,0 +1,5 @@
+# Tier 1 CV dependencies. Prefer OpenCV 5 (cv2.dnn) as stated in the repo README.
+# The vision package uses dnn / imgproc APIs also present in recent 4.x builds.
+numpy>=1.24,<3
+opencv-python>=5.0.0,<6
+pytest>=7.4
