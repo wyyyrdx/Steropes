@@ -96,8 +96,10 @@ def get_by_date_range(query_params):
 
 
 def get_by_request_id(request_id):
-    response = table.scan(
-        FilterExpression=Key('request_id').eq(request_id)
+    # Uses GSI-1 (request_id-index)
+    response = table.query(
+        IndexName='request_id-index',
+        KeyConditionExpression=Key('request_id').eq(request_id)
     )
 
     items = decimal_to_native(response.get('Items', []))
@@ -122,27 +124,26 @@ def get_stats(query_params):
         from_date = today.strftime('%Y-%m-%d')
         to_date = from_date
 
-    start = datetime.strptime(from_date, '%Y-%m-%d')
-    end = datetime.strptime(to_date, '%Y-%m-%d')
+    # Build ISO timestamp bounds for the date range to filter the GSI sort key
+    start_bound = f'{from_date}T00:00:00'
+    end_bound = f'{to_date}T23:59:59'
 
     tier_counts = {1: 0, 2: 0, 3: 0}
     cost_avoided_count = 0
     total_count = 0
 
-    current = start
-    while current <= end:
-        date_str = current.strftime('%Y-%m-%d')
+    # Uses GSI-2 (tier_resolved-index) - one query per tier instead of
+    # scanning every day in the range and counting manually
+    for tier in [1, 2, 3]:
         response = table.query(
-            KeyConditionExpression=Key('PK').eq(f'EVENT#{date_str}')
+            IndexName='tier_resolved-index',
+            KeyConditionExpression=Key('tier_resolved').eq(tier) &
+                                   Key('timestamp').between(start_bound, end_bound)
         )
-        for item in response.get('Items', []):
-            total_count += 1
-            tier = int(item.get('tier_resolved', 0))
-            if tier in tier_counts:
-                tier_counts[tier] += 1
-            if item.get('cloud_cost_avoided'):
-                cost_avoided_count += 1
-        current += timedelta(days=1)
+        items = response.get('Items', [])
+        tier_counts[tier] = len(items)
+        total_count += len(items)
+        cost_avoided_count += sum(1 for item in items if item.get('cloud_cost_avoided'))
 
     return {
         'statusCode': 200,
