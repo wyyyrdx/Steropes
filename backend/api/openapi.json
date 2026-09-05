@@ -1,0 +1,300 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DecisionEventsAPI",
+    "description": "API for receiving decision events (tier resolution, repositioning, escalation) from the AI Agent, storing them in DynamoDB, and serving them to the frontend (live feed, history, per-request tracking, stats).",
+    "version": "2026-09-03"
+  },
+  "servers": [
+    {
+      "url": "https://32v3gb46j5.execute-api.eu-north-1.amazonaws.com/prod",
+      "description": "Production stage"
+    }
+  ],
+  "paths": {
+    "/events": {
+      "post": {
+        "summary": "Receive a new decision event from the AI Agent",
+        "description": "Called by the AI Agent only when an actual decision occurs (tier change, repositioning, or escalation to Bedrock). Not used to log every frame.",
+        "operationId": "createDecisionEvent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/DecisionEventRequest" },
+              "example": {
+                "request_id": "8f14e45f-ceea-4d2e-9f5b-1a2b3c4d5e6f",
+                "tier_resolved": 2,
+                "confidence_breakdown": {
+                  "detection_confidence": 0.42,
+                  "tracking_consistency": 0.55,
+                  "optical_flow": 0.38
+                },
+                "action_taken": "REPOSITION",
+                "cloud_cost_avoided": true,
+                "timestamp": "2026-09-01T14:40:00Z"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Event stored successfully",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SuccessResponse" },
+                "example": { "message": "Event stored", "request_id": "8f14e45f-ceea-4d2e-9f5b-1a2b3c4d5e6f" }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required fields (tier_resolved or action_taken)",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "example": { "error": "tier_resolved and action_taken are required" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error (e.g. an issue connecting to DynamoDB)",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "example": { "error": "Internal server error message" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Get events within a date range",
+        "description": "Returns all decision events between two dates (inclusive). Intended for historical reports and charts on the frontend.",
+        "operationId": "getEventsByDateRange",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "format": "date", "example": "2026-09-01" },
+            "description": "Start date (YYYY-MM-DD)"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string", "format": "date", "example": "2026-09-03" },
+            "description": "End date (YYYY-MM-DD)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of events within the date range",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/EventListResponse" }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing from/to query params",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "example": { "error": "from and to query params are required (format: YYYY-MM-DD)" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/latest": {
+      "get": {
+        "summary": "Get the most recent events (live feed)",
+        "description": "Returns the latest events for today, most recent first. Intended for a live/real-time dashboard view.",
+        "operationId": "getLatestEvents",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "default": 20, "example": 20 },
+            "description": "Max number of events to return (defaults to 20)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of the most recent events",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/EventListResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/{request_id}": {
+      "get": {
+        "summary": "Get a single event's full detail by request_id",
+        "description": "Used to trace one request's full journey (e.g. which tier it resolved at, and its confidence breakdown).",
+        "operationId": "getEventByRequestId",
+        "parameters": [
+          {
+            "name": "request_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" },
+            "example": "8f14e45f-ceea-4d2e-9f5b-1a2b3c4d5e6f"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The matching event(s)",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/EventListResponse" }
+              }
+            }
+          },
+          "404": {
+            "description": "No event found with this request_id",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ErrorResponse" },
+                "example": { "error": "request_id not found" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stats": {
+      "get": {
+        "summary": "Get aggregate stats (tier breakdown, cost savings)",
+        "description": "Returns counts per tier and the percentage of decisions that avoided a Bedrock (cloud) call. Defaults to today if no date range is given.",
+        "operationId": "getStats",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "format": "date", "example": "2026-09-01" },
+            "description": "Start date (YYYY-MM-DD). Defaults to today."
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "format": "date", "example": "2026-09-03" },
+            "description": "End date (YYYY-MM-DD). Defaults to today."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Aggregate statistics",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/StatsResponse" },
+                "example": {
+                  "total_events": 5,
+                  "tier_breakdown": { "1": 1, "2": 3, "3": 1 },
+                  "cost_avoided_count": 4,
+                  "cost_avoided_percentage": 80.0
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DecisionEventRequest": {
+        "type": "object",
+        "required": ["tier_resolved", "action_taken"],
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Request identifier, generated by the AI Agent as a UUIDv4. If not sent, the server generates one automatically.",
+            "example": "8f14e45f-ceea-4d2e-9f5b-1a2b3c4d5e6f"
+          },
+          "tier_resolved": {
+            "type": "integer",
+            "enum": [1, 2, 3],
+            "description": "The tier at which the case was resolved: 1 = local, 2 = after repositioning, 3 = escalation to Bedrock",
+            "example": 2
+          },
+          "confidence_breakdown": {
+            "type": "object",
+            "description": "The three separate confidence values coming from the CV Engineer",
+            "properties": {
+              "detection_confidence": { "type": "number", "format": "float", "minimum": 0, "maximum": 1, "example": 0.42 },
+              "tracking_consistency": { "type": "number", "format": "float", "minimum": 0, "maximum": 1, "example": 0.55 },
+              "optical_flow": { "type": "number", "format": "float", "minimum": 0, "maximum": 1, "example": 0.38 }
+            }
+          },
+          "action_taken": {
+            "type": "string",
+            "enum": ["ACCEPT", "REPOSITION", "ESCALATE"],
+            "description": "The action taken by the Agent based on the confidence values",
+            "example": "REPOSITION"
+          },
+          "cloud_cost_avoided": {
+            "type": "boolean",
+            "description": "Whether a Bedrock call (cloud cost) was avoided as a result of this decision",
+            "example": true
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Event timestamp in ISO-8601 format. If not sent, the server uses the time the request arrived.",
+            "example": "2026-09-01T14:40:00Z"
+          }
+        }
+      },
+      "SuccessResponse": {
+        "type": "object",
+        "properties": {
+          "message": { "type": "string", "example": "Event stored" },
+          "request_id": { "type": "string", "example": "8f14e45f-ceea-4d2e-9f5b-1a2b3c4d5e6f" }
+        }
+      },
+      "EventListResponse": {
+        "type": "object",
+        "properties": {
+          "events": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/DecisionEventRequest" }
+          },
+          "count": { "type": "integer", "example": 5 }
+        }
+      },
+      "StatsResponse": {
+        "type": "object",
+        "properties": {
+          "total_events": { "type": "integer", "example": 5 },
+          "tier_breakdown": {
+            "type": "object",
+            "properties": {
+              "1": { "type": "integer" },
+              "2": { "type": "integer" },
+              "3": { "type": "integer" }
+            }
+          },
+          "cost_avoided_count": { "type": "integer", "example": 4 },
+          "cost_avoided_percentage": { "type": "number", "format": "float", "example": 80.0 }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": { "type": "string" }
+        }
+      }
+    }
+  },
+  "x-amazon-apigateway-security-policy": "TLS_1_0"
+}
