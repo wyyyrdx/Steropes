@@ -1,0 +1,2 @@
+# Root installer for the vision package. Canonical pins live in vision/requirements.txt.
+-r vision/requirements.txt
