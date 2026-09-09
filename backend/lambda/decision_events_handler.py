@@ -30,6 +30,9 @@ def lambda_handler(event, context):
         cloud_cost_avoided = body.get('cloud_cost_avoided', False)
         timestamp = body.get('timestamp', datetime.now(timezone.utc).isoformat())
 
+        adaptive_threshold_used = body.get('adaptive_threshold_used')
+        confidence_score = body.get('confidence_score')
+
         if tier_resolved is None or action_taken is None:
             return {
                 'statusCode': 400,
@@ -48,6 +51,12 @@ def lambda_handler(event, context):
             'cloud_cost_avoided': cloud_cost_avoided,
             'timestamp': timestamp
         }
+
+        # Only add optional fields to the item if they were actually sent
+        if adaptive_threshold_used is not None:
+            item['adaptive_threshold_used'] = convert_floats_to_decimal(adaptive_threshold_used)
+        if confidence_score is not None:
+            item['confidence_score'] = convert_floats_to_decimal(confidence_score)
 
         table.put_item(Item=item)
 
