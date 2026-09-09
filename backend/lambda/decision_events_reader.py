@@ -37,9 +37,9 @@ def lambda_handler(event, context):
         elif path.endswith('/stats'):
             return get_stats(query_params)
 
-        # GET /events?from=&to=
+        # GET /events?from=&to=&tier=
         else:
-            return get_by_date_range(query_params)
+            return get_events(query_params)
 
     except Exception as e:
         return {
@@ -65,16 +65,51 @@ def get_latest(query_params):
     }
 
 
-def get_by_date_range(query_params):
+def get_events(query_params):
+    """
+    Supports 3 filter combinations:
+    - tier only            -> query GSI-2 for that tier across all time
+    - date range only      -> query by PK across each day in range (existing behavior)
+    - tier + date range    -> query GSI-2 for that tier, filtered by timestamp bounds
+    """
     from_date = query_params.get('from')
     to_date = query_params.get('to')
+    tier = query_params.get('tier')
 
-    if not from_date or not to_date:
+    if not tier and not (from_date and to_date):
         return {
             'statusCode': 400,
-            'body': json.dumps({'error': 'from and to query params are required (format: YYYY-MM-DD)'})
+            'body': json.dumps({'error': 'Provide either tier, or both from and to (format: YYYY-MM-DD), or all three'})
         }
 
+    # Tier only (no date range)
+    if tier and not (from_date and to_date):
+        response = table.query(
+            IndexName='tier_resolved-index',
+            KeyConditionExpression=Key('tier_resolved').eq(int(tier))
+        )
+        items = decimal_to_native(response.get('Items', []))
+        return {
+            'statusCode': 200,
+            'body': json.dumps({'events': items, 'count': len(items)})
+        }
+
+    # Tier + date range
+    if tier and from_date and to_date:
+        start_bound = f'{from_date}T00:00:00'
+        end_bound = f'{to_date}T23:59:59'
+        response = table.query(
+            IndexName='tier_resolved-index',
+            KeyConditionExpression=Key('tier_resolved').eq(int(tier)) &
+                                   Key('timestamp').between(start_bound, end_bound)
+        )
+        items = decimal_to_native(response.get('Items', []))
+        return {
+            'statusCode': 200,
+            'body': json.dumps({'events': items, 'count': len(items)})
+        }
+
+    # Date range only (no tier)
     start = datetime.strptime(from_date, '%Y-%m-%d')
     end = datetime.strptime(to_date, '%Y-%m-%d')
 
@@ -96,7 +131,6 @@ def get_by_date_range(query_params):
 
 
 def get_by_request_id(request_id):
-    # Uses GSI-1 (request_id-index)
     response = table.query(
         IndexName='request_id-index',
         KeyConditionExpression=Key('request_id').eq(request_id)
@@ -124,7 +158,6 @@ def get_stats(query_params):
         from_date = today.strftime('%Y-%m-%d')
         to_date = from_date
 
-    # Build ISO timestamp bounds for the date range to filter the GSI sort key
     start_bound = f'{from_date}T00:00:00'
     end_bound = f'{to_date}T23:59:59'
 
@@ -132,8 +165,6 @@ def get_stats(query_params):
     cost_avoided_count = 0
     total_count = 0
 
-    # Uses GSI-2 (tier_resolved-index) - one query per tier instead of
-    # scanning every day in the range and counting manually
     for tier in [1, 2, 3]:
         response = table.query(
             IndexName='tier_resolved-index',
