@@ -1,0 +1,87 @@
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+}
+
+.metric-card.accent-green {
+  border-top: 3px solid var(--color-success);
+}
+.metric-card.accent-amber {
+  border-top: 3px solid var(--color-warning);
+}
+.metric-card.accent-red {
+  border-top: 3px solid var(--color-error);
+}
+.metric-card.accent-indigo {
+  border-top: 3px solid var(--color-primary);
+}
+.metric-card.accent-default {
+  border-top: 3px solid transparent;
+}
+
+.metric-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-2);
+}
+
+.metric-card-icon {
+  color: var(--color-text-muted);
+}
+
+.metric-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.metric-card-value {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.value-short {
+  font-size: var(--text-h2);
+}
+
+.value-long {
+  font-size: var(--text-h3);
+}
+
+.metric-card-label-row {
+  display: flex;
+  align-items: center;
+}
+
+.metric-card-label {
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.tooltip-trigger {
+  text-decoration: underline dotted var(--color-text-muted);
+  cursor: help;
+}
+
+.metric-card-sublabel {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted);
+}
+
+.metric-card-skeleton {
+  min-height: 120px;
+  width: 100%;
+}

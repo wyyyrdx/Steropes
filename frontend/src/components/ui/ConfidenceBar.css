@@ -1,0 +1,28 @@
+.confidence-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.confidence-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.confidence-bar-label {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+}
+
+.confidence-bar-value {
+  font-size: var(--text-caption);
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--color-text-primary);
+}
+
+.confidence-bar-sm .confidence-bar-label,
+.confidence-bar-sm .confidence-bar-value {
+  font-size: 11px;
+}

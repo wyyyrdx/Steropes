@@ -1,0 +1,22 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-transform: uppercase;
+  font-size: var(--text-label);
+  font-weight: 500;
+}
+
+.status-badge-dot {
+  border-radius: var(--radius-full);
+}
+
+.status-badge-sm .status-badge-dot {
+  width: 6px;
+  height: 6px;
+}
+
+.status-badge-md .status-badge-dot {
+  width: 8px;
+  height: 8px;
+}

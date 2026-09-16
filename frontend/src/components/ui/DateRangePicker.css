@@ -1,0 +1,82 @@
+.date-range-picker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.date-presets {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.date-preset-btn {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-body-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.date-preset-btn:not(:disabled):hover {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.date-preset-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.date-inputs-row {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.date-input-group label {
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+
+.date-input {
+  background-color: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  font-family: inherit;
+  font-size: var(--text-body);
+  outline: none;
+  /* Reset browser specific styles */
+  color-scheme: dark;
+}
+
+.date-input:focus-visible {
+  border-color: var(--color-primary);
+}
+
+.date-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.date-separator {
+  padding-bottom: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm);
+}
+
+.date-apply-btn {
+  margin-bottom: 2px;
+}

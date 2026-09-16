@@ -1,0 +1,29 @@
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-4);
+  gap: var(--space-4);
+}
+
+.section-header-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.section-header-title {
+  margin: 0;
+  font-size: var(--text-h3);
+  color: var(--color-text-primary);
+}
+
+.section-header-description {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.section-header-action {
+  flex-shrink: 0;
+}
