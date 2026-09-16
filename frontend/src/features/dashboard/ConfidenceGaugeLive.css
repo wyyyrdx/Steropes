@@ -1,0 +1,10 @@
+.confidence-live-empty {
+  color: var(--color-text-muted);
+  font-size: var(--text-body-sm);
+  font-style: italic;
+  padding: var(--space-2) 0;
+}
+
+.confidence-live-wrapper {
+  width: 100%;
+}

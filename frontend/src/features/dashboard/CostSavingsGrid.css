@@ -1,0 +1,28 @@
+.cost-savings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+}
+
+.cost-savings-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--space-8);
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.metric-prominent-wrapper > div {
+  border-width: 2px;
+}
+.metric-prominent-wrapper span[class*="metric-value"] {
+  font-size: var(--text-metric-xl, 3rem);
+}
+
+@media (max-width: 767px) {
+  .cost-savings-grid {
+    grid-template-columns: 1fr;
+  }
+}

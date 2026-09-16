@@ -1,0 +1,75 @@
+.live-stream-widget {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.live-stream-status-pill {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-bg-surface);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+.live-stream-status-label {
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.live-stream-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  z-index: 2;
+}
+
+.live-stream-icon {
+  color: var(--color-text-muted);
+}
+
+.live-stream-text {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted);
+}
+
+.live-stream-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: var(--color-info);
+  opacity: 0.15;
+  box-shadow: 0 0 10px var(--color-info);
+  animation: scanline-relative 4s linear infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes scanline-relative {
+  0% { top: -10px; }
+  100% { top: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-stream-scanline {
+    animation: none;
+    display: none;
+  }
+}
