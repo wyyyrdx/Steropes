@@ -1,0 +1,32 @@
+.hardware-chip {
+  background-color: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.hardware-chip-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.hardware-chip-icon {
+  color: var(--color-text-muted);
+}
+
+.hardware-chip-name {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-primary);
+  font-weight: 500;
+}
+
+.hardware-chip-metadata {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  margin-top: auto;
+}

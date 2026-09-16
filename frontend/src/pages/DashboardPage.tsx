@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLiveMonitoring } from '@/hooks';
 import { SectionHeader } from '@/components/ui';
 import LiveStreamWidget from '@/features/dashboard/LiveStreamWidget';
@@ -6,6 +6,9 @@ import CurrentDetectionCard from '@/features/dashboard/CurrentDetectionCard';
 import ConfidenceGaugeLive from '@/features/dashboard/ConfidenceGaugeLive';
 import CascadeStatusFlow from '@/features/dashboard/CascadeStatusFlow';
 import CostSavingsGrid from '@/features/dashboard/CostSavingsGrid';
+import HardwareStatusGrid from '@/features/dashboard/HardwareStatusGrid';
+import DecisionsTimeline from '@/features/dashboard/DecisionsTimeline';
+import FrameDetailsModal from '@/features/frames/FrameDetailsModal';
 import './pages.css';
 import './DashboardPage.css';
 
@@ -15,6 +18,8 @@ export default function DashboardPage() {
   const currentTier = currentFrame?.tier_resolved ?? null;
   const currentAction = currentFrame?.action_taken ?? null;
   const confidence = currentFrame?.confidence_breakdown ?? null;
+
+  const [selectedRequestId, setSelectedRequestId] = useState<string | null>(null);
 
   return (
     <div className="page">
@@ -47,14 +52,31 @@ export default function DashboardPage() {
           </section>
 
           {/* Right Column: Cost Savings & more */}
-          <section className="dashboard-col-right" aria-label="Cost Savings">
-            <SectionHeader title="Cost Savings" />
-            <CostSavingsGrid />
-            
-            {/* Placeholder for Prompt 12: Hardware Status + Decisions Timeline will go here or below */}
+          <section className="dashboard-col-right" aria-label="Dashboard Metrics and Hardware">
+            <div className="dashboard-right-stack">
+              <div>
+                <SectionHeader title="Cost Savings" />
+                <CostSavingsGrid />
+              </div>
+              
+              <div>
+                <SectionHeader title="Hardware Status" />
+                <HardwareStatusGrid />
+              </div>
+
+              <div>
+                <SectionHeader title="Recent Decisions" />
+                <DecisionsTimeline onSelect={(e) => setSelectedRequestId(e.request_id)} />
+              </div>
+            </div>
           </section>
         </div>
 
+        <FrameDetailsModal 
+          isOpen={selectedRequestId !== null}
+          onClose={() => setSelectedRequestId(null)}
+          requestId={selectedRequestId}
+        />
       </div>
     </div>
   );

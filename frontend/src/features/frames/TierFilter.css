@@ -1,0 +1,43 @@
+.tier-filter-group {
+  display: inline-flex;
+  background-color: var(--color-bg-base);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.tier-filter-btn {
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--color-border);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tier-filter-btn:last-child {
+  border-right: none;
+}
+
+.tier-filter-btn:hover {
+  background-color: var(--color-bg-subtle);
+  color: var(--color-text-primary);
+}
+
+.tier-filter-btn.active {
+  background-color: var(--color-primary);
+  color: var(--color-bg-base);
+}
+
+@media (max-width: 767px) {
+  .tier-filter-group {
+    display: flex;
+    width: 100%;
+  }
+  .tier-filter-btn {
+    flex: 1;
+    padding: var(--space-2);
+  }
+}

@@ -1,0 +1,55 @@
+.adaptive-threshold-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  padding: var(--space-6);
+  position: relative;
+}
+
+.adaptive-threshold-card-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.adaptive-threshold-value {
+  font-size: var(--text-metric-xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.adaptive-threshold-labels {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.adaptive-threshold-title {
+  font-size: var(--text-h3);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.adaptive-threshold-subtitle {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.adaptive-threshold-badge {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+}
+
+@media (max-width: 767px) {
+  .adaptive-threshold-card-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}

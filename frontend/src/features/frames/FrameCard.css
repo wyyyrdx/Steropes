@@ -1,0 +1,50 @@
+.frame-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.frame-card:hover,
+.frame-card:focus-visible {
+  border-color: var(--color-border-strong);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.frame-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+}
+
+.frame-card-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.frame-card-mono {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+.frame-card-time {
+  font-size: var(--text-caption);
+  color: var(--color-text-muted);
+}
+
+.frame-card-cloud {
+  color: var(--color-success);
+  font-size: var(--text-caption);
+  margin-top: var(--space-1);
+}

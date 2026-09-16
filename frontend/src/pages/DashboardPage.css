@@ -9,7 +9,8 @@
   flex-direction: column;
 }
 
-.dashboard-live-stack {
+.dashboard-live-stack,
+.dashboard-right-stack {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
