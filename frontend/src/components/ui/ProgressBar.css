@@ -1,0 +1,15 @@
+.progress-bar-track {
+  width: 100%;
+  background-color: var(--color-bg-subtle);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+}
+
+.progress-bar-fill.animated {
+  transition: width 0.3s ease;
+}
