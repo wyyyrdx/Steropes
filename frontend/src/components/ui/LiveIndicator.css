@@ -50,3 +50,10 @@
   50% { transform: scale(1.1); opacity: 1; }
   100% { transform: scale(0.95); opacity: 0.7; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .indicator-live .live-indicator-dot {
+    animation: none;
+    transform: none;
+  }
+}

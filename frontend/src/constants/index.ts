@@ -2,3 +2,5 @@ export * from './api';
 export * from './tiers';
 export * from './actions';
 export * from './mock';
+export * from './chart';
+

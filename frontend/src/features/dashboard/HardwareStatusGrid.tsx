@@ -8,7 +8,7 @@ import type { HardwareStatusValue } from '@/types';
 import './HardwareStatusGrid.css';
 
 export default function HardwareStatusGrid() {
-  const { status, isLoading, error } = useHardwareStatus();
+  const { status, isLoading, error, refetch } = useHardwareStatus();
   const { error: statsError, lastUpdated: statsLastUpdated } = useStats();
 
   const getBackendStatus = (): HardwareStatusValue => {
@@ -32,7 +32,7 @@ export default function HardwareStatusGrid() {
   if (error && !status) {
     return (
       <div className="hardware-error">
-        <ErrorState title="Hardware Telemetry Failed" message={error} />
+        <ErrorState title="Hardware Telemetry Failed" message={error} onRetry={refetch} />
       </div>
     );
   }

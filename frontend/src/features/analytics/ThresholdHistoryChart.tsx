@@ -3,6 +3,7 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianG
 import type { ThresholdPoint } from '@/types';
 import { ChartCard, MockBadge } from '@/components/ui';
 import { buildThresholdSeries } from '@/utils';
+import { CHART_DEFAULTS } from '@/constants';
 import './ThresholdHistoryChart.css';
 
 interface ThresholdHistoryChartProps {
@@ -56,8 +57,8 @@ export default function ThresholdHistoryChart({ history, isLoading }: ThresholdH
             />
             <Tooltip 
               contentStyle={{
-                backgroundColor: 'var(--color-bg-base)',
-                borderColor: 'var(--color-border)',
+                backgroundColor: CHART_DEFAULTS.tooltipBackground,
+                borderColor: CHART_DEFAULTS.tooltipBorder,
                 color: 'var(--color-text-primary)',
                 borderRadius: 'var(--radius-md)'
               }}

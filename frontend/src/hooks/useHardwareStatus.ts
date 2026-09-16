@@ -9,13 +9,14 @@ export function useHardwareStatus(): {
   isLoading: boolean;
   error: string | null;
   lastUpdated: Date | null;
+  refetch: () => void;
 } {
   const fetcher = useCallback(
     (signal: AbortSignal) => getHardwareStatus(signal),
     []
   );
 
-  const { data, isLoading, error, lastUpdated } = usePolling(
+  const { data, isLoading, error, lastUpdated, refetch } = usePolling(
     fetcher,
     POLLING_INTERVALS.hardwareMock
   );
@@ -24,6 +25,7 @@ export function useHardwareStatus(): {
     status: data,
     isLoading,
     error,
-    lastUpdated
+    lastUpdated,
+    refetch
   };
 }

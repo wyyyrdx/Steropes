@@ -3,6 +3,7 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGri
 import type { StatsResponse } from '@/types';
 import { ChartCard, MockBadge } from '@/components/ui';
 import { buildCostChartData, computeEstimatedSavings, formatCostUSD } from '@/utils';
+import { CHART_DEFAULTS } from '@/constants';
 import './CostComparisonChart.css';
 
 interface CostComparisonChartProps {
@@ -62,8 +63,8 @@ export default function CostComparisonChart({ stats, isLoading }: CostComparison
               <Tooltip 
                 cursor={{ fill: 'var(--color-bg-subtle)' }}
                 contentStyle={{
-                  backgroundColor: 'var(--color-bg-base)',
-                  borderColor: 'var(--color-border)',
+                  backgroundColor: CHART_DEFAULTS.tooltipBackground,
+                  borderColor: CHART_DEFAULTS.tooltipBorder,
                   color: 'var(--color-text-primary)',
                   borderRadius: 'var(--radius-md)'
                 }}

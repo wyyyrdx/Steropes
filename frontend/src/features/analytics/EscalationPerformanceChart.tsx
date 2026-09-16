@@ -3,6 +3,7 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGri
 import type { EscalationRange } from '@/types';
 import { ChartCard, MockBadge } from '@/components/ui';
 import { buildEscalationBars } from '@/utils';
+import { CHART_DEFAULTS } from '@/constants';
 import './EscalationPerformanceChart.css';
 
 interface EscalationPerformanceChartProps {
@@ -56,8 +57,8 @@ export default function EscalationPerformanceChart({ bars, isLoading }: Escalati
             <Tooltip 
               cursor={{ fill: 'var(--color-bg-subtle)' }}
               contentStyle={{
-                backgroundColor: 'var(--color-bg-base)',
-                borderColor: 'var(--color-border)',
+                backgroundColor: CHART_DEFAULTS.tooltipBackground,
+                borderColor: CHART_DEFAULTS.tooltipBorder,
                 color: 'var(--color-text-primary)',
                 borderRadius: 'var(--radius-md)'
               }}

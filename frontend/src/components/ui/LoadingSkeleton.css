@@ -8,6 +8,13 @@
   animation: skeleton-pulse 1.5s ease-in-out infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animated {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
 .skeleton-stack {
   display: flex;
   flex-direction: column;

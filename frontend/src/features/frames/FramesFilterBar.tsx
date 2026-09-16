@@ -20,7 +20,7 @@ export default function FramesFilterBar({
 }: FramesFilterBarProps) {
   
   return (
-    <section className="frames-filter-bar" aria-label="Frame filters">
+    <section className="frames-filter-bar" role="group" aria-label="Frame filters">
       <div className="frames-filter-controls">
         <div className="filter-item">
           <span className="filter-label">Tier</span>

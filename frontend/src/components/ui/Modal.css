@@ -45,3 +45,18 @@
   overflow-y: auto;
   flex: 1;
 }
+
+@media (max-width: 767px) {
+  .modal-backdrop {
+    align-items: flex-end;
+  }
+  
+  .modal-container {
+    margin: 0;
+    max-height: 95vh;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+  }
+}

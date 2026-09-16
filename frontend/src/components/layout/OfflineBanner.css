@@ -1,0 +1,10 @@
+.offline-banner {
+  background-color: var(--color-tier-3);
+  color: var(--color-bg-base);
+  text-align: center;
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-body-sm);
+  font-weight: 500;
+  z-index: 2000;
+  position: relative;
+}

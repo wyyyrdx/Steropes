@@ -3,6 +3,7 @@ import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip } from 'recharts';
 import type { StatsResponse } from '@/types';
 import { ChartCard } from '@/components/ui';
 import { buildTierChartData, computeLocalResolutionRate, formatPercentage } from '@/utils';
+import { CHART_DEFAULTS } from '@/constants';
 import './TierDonutChart.css';
 
 interface TierDonutChartProps {
@@ -64,8 +65,8 @@ export default function TierDonutChart({ stats, isLoading }: TierDonutChartProps
               </Pie>
               <Tooltip 
                 contentStyle={{
-                  backgroundColor: 'var(--color-bg-base)',
-                  borderColor: 'var(--color-border)',
+                  backgroundColor: CHART_DEFAULTS.tooltipBackground,
+                  borderColor: CHART_DEFAULTS.tooltipBorder,
                   color: 'var(--color-text-primary)',
                   borderRadius: 'var(--radius-md)'
                 }}

@@ -53,7 +53,7 @@ export default function DecisionsTimeline({ onSelect }: DecisionsTimelineProps =
 
     if (data) {
       return (
-        <ol className="timeline-list" aria-label="Recent decisions">
+        <ol className="timeline-list" aria-label="Recent decisions" aria-live="polite">
           {data.events.map(event => (
             <li key={event.request_id}>
               <TimelineItem 
