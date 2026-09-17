@@ -79,7 +79,7 @@ export function usePolling<T>(
 
     clearTimers();
 
-    if (!enabled || !isVisible) {
+    if (!isVisible) {
       if (abortControllerRef.current) abortControllerRef.current.abort();
       setIsLoading(false);
       return;

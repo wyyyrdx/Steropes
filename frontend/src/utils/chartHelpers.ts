@@ -13,14 +13,48 @@ export function buildTierChartData(raw: TierBreakdown) {
   ];
 }
 
-export function buildCostChartData(stats: StatsResponse) {
-  return [
-    { 
-      category: 'Today', 
-      without: stats.total_events * MOCK_BEDROCK_COST_PER_CALL, 
-      with: (Number(stats.tier_breakdown["3"]) || 0) * MOCK_BEDROCK_COST_PER_CALL 
-    }
-  ];
+export function buildCostChartData(
+  stats: StatsResponse,
+  days: number = 7
+): Array<{ category: string; without: number; with: number }> {
+  const totalWithout = stats.total_events * MOCK_BEDROCK_COST_PER_CALL;
+  const totalWith = (Number(stats.tier_breakdown["3"]) || 0) * MOCK_BEDROCK_COST_PER_CALL;
+
+  if (days <= 1) {
+    return [
+      {
+        category: 'Today',
+        without: parseFloat(totalWithout.toFixed(4)),
+        with: parseFloat(totalWith.toFixed(4)),
+      }
+    ];
+  }
+
+  // Produce deterministic per-day variation using sin-based multipliers
+  const multipliers: number[] = [];
+  let multiplierSum = 0;
+  for (let i = 0; i < days; i++) {
+    const m = Math.sin(i + 1) * 0.15 + 1;
+    multipliers.push(m);
+    multiplierSum += m;
+  }
+
+  // Generate date labels going back from today
+  const today = new Date();
+  const rows: Array<{ category: string; without: number; with: number }> = [];
+  for (let i = 0; i < days; i++) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - (days - 1 - i));
+    const label = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const fraction = multipliers[i] / multiplierSum;
+    rows.push({
+      category: label,
+      without: parseFloat((totalWithout * fraction).toFixed(4)),
+      with: parseFloat((totalWith * fraction).toFixed(4)),
+    });
+  }
+
+  return rows;
 }
 
 export function buildThresholdSeries(history: ThresholdPoint[]) {

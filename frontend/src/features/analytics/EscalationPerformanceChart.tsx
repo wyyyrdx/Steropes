@@ -41,7 +41,7 @@ export default function EscalationPerformanceChart({ bars, isLoading }: Escalati
         </table>
 
         <ResponsiveContainer width="100%" height={260}>
-          <BarChart data={data} accessibilityLayer margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
+          <BarChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" />
             <XAxis 
               dataKey="range" 

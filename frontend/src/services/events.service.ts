@@ -1,10 +1,18 @@
-import { USE_MOCK } from '@/constants';
-import { mockEvents } from '@/mocks';
+import { USE_MOCK, DEMO_MODE } from '@/constants';
+import { mockEvents, eventStream } from '@/mocks';
 import { fetchLatestEvents, fetchEvents, fetchEventById } from '@/api';
 import type { DecisionEvent, EventFilters, EventListResponse } from '@/types';
 
 function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+let streamStarted = false;
+function ensureStream() {
+  if (DEMO_MODE.enabled && !streamStarted) {
+    eventStream.start();
+    streamStarted = true;
+  }
 }
 
 export async function getLatestEvents(
@@ -13,6 +21,11 @@ export async function getLatestEvents(
 ): Promise<EventListResponse> {
   if (USE_MOCK.events) {
     await delay(200);
+    if (DEMO_MODE.enabled) {
+      ensureStream();
+      const events = eventStream.getRecent(limit);
+      return { events, count: events.length };
+    }
     return {
       events: mockEvents.slice(0, limit),
       count: Math.min(limit, mockEvents.length)
@@ -27,10 +40,23 @@ export async function getEvents(
 ): Promise<EventListResponse> {
   if (USE_MOCK.events) {
     await delay(200);
-    let events = [...mockEvents];
     
-    if (filters.tier !== undefined) {
-      events = events.filter(e => e.tier === filters.tier);
+    let allEvents = [...mockEvents];
+    if (DEMO_MODE.enabled) {
+      ensureStream();
+      // Combine live buffer and static seed, remove duplicates by request_id
+      const liveEvents = eventStream.getRecent(DEMO_MODE.maxLiveEvents);
+      const liveIds = new Set(liveEvents.map(e => e.request_id));
+      const filteredMocks = mockEvents.filter(e => !liveIds.has(e.request_id));
+      allEvents = [...liveEvents, ...filteredMocks];
+    }
+    
+    let events = [...allEvents];
+    
+    // Note: The previous code checked `e.tier === filters.tier` which is wrong because the type is `tier_resolved`.
+    // I am fixing that bug too based on types/index.ts.
+    if (filters.tier != null) {
+      events = events.filter(e => e.tier_resolved === filters.tier);
     }
     if (filters.from && filters.to) {
       events = events.filter(e => {
@@ -73,6 +99,11 @@ export async function getEventById(
 ): Promise<DecisionEvent | null> {
   if (USE_MOCK.events) {
     await delay(200);
+    if (DEMO_MODE.enabled) {
+      ensureStream();
+      const liveEvent = eventStream.getRecent(DEMO_MODE.maxLiveEvents).find(e => e.request_id === requestId);
+      if (liveEvent) return liveEvent;
+    }
     const event = mockEvents.find(e => e.request_id === requestId);
     return event || null;
   }

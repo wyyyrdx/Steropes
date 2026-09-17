@@ -16,7 +16,7 @@ describe('events.service', () => {
 
   it('getEvents filters by tier correctly', async () => {
     const res = await getEvents({ tier: 2 });
-    expect(res.events.every(e => e.tier === 2)).toBe(true);
+    expect(res.events.every(e => e.tier_resolved === 2)).toBe(true);
   });
 
   it('getEvents filters by action correctly', async () => {

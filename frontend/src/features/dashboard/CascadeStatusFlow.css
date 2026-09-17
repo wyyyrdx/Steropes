@@ -51,6 +51,53 @@
   background-color: var(--color-tier-1);
   border-color: var(--color-tier-1);
 }
+
+.cascade-animation-tier2 {
+  position: absolute;
+  top: -30px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--color-bg-elevated);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  animation: fade-in-up 0.3s ease-out forwards;
+}
+
+.reposition-icon {
+  color: var(--color-tier-2);
+  animation: spin 0.8s ease-in-out;
+}
+
+.reposition-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cascade-animation-tier2 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .reposition-icon {
+    animation: none;
+  }
+}
+
 .cascade-node-completed .cascade-indicator-tier-2 {
   background-color: var(--color-tier-2);
   border-color: var(--color-tier-2);

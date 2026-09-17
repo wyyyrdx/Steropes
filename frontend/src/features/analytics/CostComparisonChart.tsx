@@ -36,8 +36,8 @@ export default function CostComparisonChart({ stats, isLoading }: CostComparison
             {data.map(d => (
               <tr key={d.category}>
                 <td>{d.category}</td>
-                <td>{d.without}</td>
-                <td>{d.with}</td>
+                <td>{formatCostUSD(d.without)}</td>
+                <td>{formatCostUSD(d.with)}</td>
               </tr>
             ))}
           </tbody>
@@ -46,7 +46,7 @@ export default function CostComparisonChart({ stats, isLoading }: CostComparison
         {/* Recharts chart */}
         <div className="cost-chart-wrapper">
           <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={data} accessibilityLayer margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" />
               <XAxis 
                 dataKey="category" 

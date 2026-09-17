@@ -1,4 +1,5 @@
 import React from 'react';
+import { RefreshCcw } from 'lucide-react';
 import type { ActionTaken } from '@/types';
 import { TierBadge, ActionBadge } from '@/components/ui';
 import './CascadeStatusFlow.css';
@@ -7,12 +8,14 @@ interface CascadeStatusFlowProps {
   currentTier: 1 | 2 | 3 | null;
   currentAction: ActionTaken | null;
   resolved?: boolean;
+  timestamp?: string | null;
 }
 
 export default function CascadeStatusFlow({
   currentTier,
   currentAction,
-  resolved = true
+  resolved = true,
+  timestamp
 }: CascadeStatusFlowProps) {
   
   const getTierState = (tier: 1 | 2 | 3) => {
@@ -23,14 +26,22 @@ export default function CascadeStatusFlow({
 
   const renderNode = (tier: 1 | 2 | 3, label: string) => {
     const state = getTierState(tier);
+    const nodeKey = `${tier}-${timestamp || 'static'}`;
     
     return (
       <div 
+        key={nodeKey}
         className={`cascade-node cascade-node-${state.toLowerCase()}`}
         aria-label={`Tier ${tier} — ${state.toLowerCase()}`}
       >
         <div className={`cascade-node-indicator cascade-indicator-tier-${tier}`}>
           {state === 'COMPLETED' && <span className="cascade-node-check">✓</span>}
+          {tier === 2 && currentTier === 2 && (
+            <div className="cascade-animation-tier2" key={nodeKey}>
+              <RefreshCcw size={14} className="reposition-icon" />
+              <span className="reposition-label">+20° / -5°</span>
+            </div>
+          )}
         </div>
         <div className="cascade-node-badge">
           <TierBadge tier={tier} />

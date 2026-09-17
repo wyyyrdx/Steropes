@@ -50,7 +50,7 @@ export default function TierDonutChart({ stats, isLoading }: TierDonutChartProps
         {/* Recharts chart */}
         <div className="tier-donut-chart">
           <ResponsiveContainer width="100%" height={260}>
-            <PieChart accessibilityLayer>
+            <PieChart>
               <Pie
                 data={data}
                 dataKey="value"

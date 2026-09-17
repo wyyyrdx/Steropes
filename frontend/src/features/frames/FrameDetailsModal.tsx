@@ -41,7 +41,10 @@ export default function FrameDetailsModal({ isOpen, onClose, requestId }: FrameD
       <div className="frame-details-content">
         <section className="frame-details-top">
           <div className="frame-details-media">
-            <FrameImagePlaceholder />
+            <FrameImagePlaceholder 
+              seed={event.request_id}
+              label={event._ui_movement ? "Repositioned" : "Frame"}
+            />
           </div>
           <div className="frame-details-summary">
             <DecisionSection event={event} />

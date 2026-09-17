@@ -2,7 +2,7 @@ import React from 'react';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from 'recharts';
 import type { ThresholdPoint } from '@/types';
 import { ChartCard, MockBadge } from '@/components/ui';
-import { buildThresholdSeries } from '@/utils';
+import { buildThresholdSeries, formatConfidence } from '@/utils';
 import { CHART_DEFAULTS } from '@/constants';
 import './ThresholdHistoryChart.css';
 
@@ -34,14 +34,14 @@ export default function ThresholdHistoryChart({ history, isLoading }: ThresholdH
             {data.map((d, i) => (
               <tr key={i}>
                 <td>{d.label}</td>
-                <td>{d.value}</td>
+                <td>{formatConfidence(d.value)}</td>
               </tr>
             ))}
           </tbody>
         </table>
 
         <ResponsiveContainer width="100%" height={250}>
-          <LineChart data={data} accessibilityLayer margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
+          <LineChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--color-border)" />
             <XAxis 
               dataKey="label" 

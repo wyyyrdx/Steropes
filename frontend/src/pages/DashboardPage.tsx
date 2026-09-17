@@ -14,10 +14,10 @@ import './DashboardPage.css';
 
 export default function DashboardPage() {
   const { state: liveState } = useLiveMonitoring();
-  const currentFrame = liveState?.current_frame ?? null;
-  const currentTier = currentFrame?.tier_resolved ?? null;
-  const currentAction = currentFrame?.action_taken ?? null;
-  const confidence = currentFrame?.confidence_breakdown ?? null;
+  const currentFrame = liveState?.currentFrame ?? null;
+  const currentTier = liveState?.currentTier ?? null;
+  const currentAction = liveState?.currentAction ?? null;
+  const confidence = liveState?.currentConfidence ?? null;
 
   const [selectedRequestId, setSelectedRequestId] = useState<string | null>(null);
 
@@ -47,6 +47,7 @@ export default function DashboardPage() {
               <CascadeStatusFlow 
                 currentTier={currentTier}
                 currentAction={currentAction}
+                timestamp={currentFrame?.timestamp}
               />
             </div>
           </section>

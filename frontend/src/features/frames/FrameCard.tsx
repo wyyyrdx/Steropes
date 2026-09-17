@@ -39,7 +39,10 @@ export default function FrameCard({ event, onClick }: FrameCardProps) {
       aria-label={`Frame event at ${formatTimestamp(timestamp)}, Tier ${tier_resolved}, ${action_taken}`}
     >
       <div className="frame-card-media">
-        <FrameImagePlaceholder />
+        <FrameImagePlaceholder 
+          seed={event.request_id}
+          label={event._ui_movement ? "Repositioned" : "Frame"}
+        />
       </div>
       
       <div className="frame-card-content">

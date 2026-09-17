@@ -10,7 +10,7 @@ interface DecisionsTimelineProps {
 }
 
 export default function DecisionsTimeline({ onSelect }: DecisionsTimelineProps = {}) {
-  const { data, isLoading, error, lastUpdated, refetch } = useEvents(20);
+  const { events, isLoading, error, lastUpdated, refetch } = useEvents(20);
 
   const handleItemClick = (event: DecisionEvent) => {
     if (onSelect) {
@@ -21,7 +21,7 @@ export default function DecisionsTimeline({ onSelect }: DecisionsTimelineProps =
   };
 
   const renderContent = () => {
-    if (isLoading && !data) {
+    if (isLoading && events.length === 0) {
       return (
         <div className="timeline-loading">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -31,7 +31,7 @@ export default function DecisionsTimeline({ onSelect }: DecisionsTimelineProps =
       );
     }
 
-    if (error && !data) {
+    if (error && events.length === 0) {
       return (
         <div className="timeline-error">
           <ErrorState title="Failed to load timeline" message={error} onRetry={refetch} />
@@ -39,7 +39,7 @@ export default function DecisionsTimeline({ onSelect }: DecisionsTimelineProps =
       );
     }
 
-    if (data && data.events.length === 0) {
+    if (events.length === 0) {
       return (
         <div className="timeline-empty">
           <EmptyState 
@@ -51,22 +51,18 @@ export default function DecisionsTimeline({ onSelect }: DecisionsTimelineProps =
       );
     }
 
-    if (data) {
-      return (
-        <ol className="timeline-list" aria-label="Recent decisions" aria-live="polite">
-          {data.events.map(event => (
-            <li key={event.request_id}>
-              <TimelineItem 
-                event={event} 
-                onClick={() => handleItemClick(event)} 
-              />
-            </li>
-          ))}
-        </ol>
-      );
-    }
-
-    return null;
+    return (
+      <ol className="timeline-list" aria-label="Recent decisions" aria-live="polite">
+        {events.map(event => (
+          <li key={event.request_id}>
+            <TimelineItem 
+              event={event} 
+              onClick={() => handleItemClick(event)} 
+            />
+          </li>
+        ))}
+      </ol>
+    );
   };
 
   return (
@@ -86,3 +82,4 @@ export default function DecisionsTimeline({ onSelect }: DecisionsTimelineProps =
     </div>
   );
 }
+

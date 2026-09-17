@@ -281,4 +281,154 @@ export const mockEvents: DecisionEvent[] = [
     _ui_imageUrl: null,
     _ui_movement: null,
   },
+  // Event 21 - Tier 1
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:47:00+00:00#evt-021",
+    request_id: "a0987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 1,
+    confidence_breakdown: { detection_confidence: 0.88, tracking_consistency: 0.84, optical_flow: 0.12 },
+    action_taken: "ACCEPT",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:47:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: null,
+  },
+  // Event 22 - Tier 2
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:42:00+00:00#evt-022",
+    request_id: "b0987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 2,
+    confidence_breakdown: { detection_confidence: 0.44, tracking_consistency: 0.52, optical_flow: 0.38 },
+    action_taken: "REPOSITION",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:42:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: { pan_delta: 20, tilt_delta: -10, actual_pan: 20, actual_tilt: -10, status: "COMPLETED" },
+  },
+  // Event 23 - Tier 1
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:39:00+00:00#evt-023",
+    request_id: "c0987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 1,
+    confidence_breakdown: { detection_confidence: 0.94, tracking_consistency: 0.91, optical_flow: 0.06 },
+    action_taken: "ACCEPT",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:39:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: null,
+  },
+  // Event 24 - Tier 1
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:35:00+00:00#evt-024",
+    request_id: "d0987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 1,
+    confidence_breakdown: { detection_confidence: 0.78, tracking_consistency: 0.76, optical_flow: 0.20 },
+    action_taken: "ACCEPT",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:35:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: null,
+  },
+  // Event 25 - Tier 3
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:30:00+00:00#evt-025",
+    request_id: "e0987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 3,
+    confidence_breakdown: { detection_confidence: 0.30, tracking_consistency: 0.22, optical_flow: 0.70 },
+    action_taken: "ESCALATE",
+    cloud_cost_avoided: false,
+    timestamp: "2026-09-16T09:30:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: { pan_delta: -5, tilt_delta: 15, actual_pan: -5, actual_tilt: 15, status: "COMPLETED" },
+  },
+  // Event 26 - Tier 1
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:25:00+00:00#evt-026",
+    request_id: "f0987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 1,
+    confidence_breakdown: { detection_confidence: 0.81, tracking_consistency: 0.79, optical_flow: 0.14 },
+    action_taken: "ACCEPT",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:25:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: null,
+  },
+  // Event 27 - Tier 2
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:20:00+00:00#evt-027",
+    request_id: "00987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 2,
+    confidence_breakdown: { detection_confidence: 0.49, tracking_consistency: 0.45, optical_flow: 0.41 },
+    action_taken: "REPOSITION",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:20:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: { pan_delta: 10, tilt_delta: 0, actual_pan: 10, actual_tilt: 0, status: "COMPLETED" },
+  },
+  // Event 28 - Tier 1
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:15:00+00:00#evt-028",
+    request_id: "10987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 1,
+    confidence_breakdown: { detection_confidence: 0.86, tracking_consistency: 0.85, optical_flow: 0.10 },
+    action_taken: "ACCEPT",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:15:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: null,
+  },
+  // Event 29 - Tier 1
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:10:00+00:00#evt-029",
+    request_id: "20987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 1,
+    confidence_breakdown: { detection_confidence: 0.90, tracking_consistency: 0.87, optical_flow: 0.11 },
+    action_taken: "ACCEPT",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:10:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: null,
+  },
+  // Event 30 - Tier 2
+  {
+    PK: "EVENT#2026-09-16",
+    SK: "2026-09-16T09:05:00+00:00#evt-030",
+    request_id: "30987654-3210-fedc-ba09-8765432109ab",
+    tier_resolved: 2,
+    confidence_breakdown: { detection_confidence: 0.55, tracking_consistency: 0.50, optical_flow: 0.32 },
+    action_taken: "REPOSITION",
+    cloud_cost_avoided: true,
+    timestamp: "2026-09-16T09:05:00Z",
+    _ui_imageUrl: null,
+    _ui_movement: { pan_delta: -12, tilt_delta: -5, actual_pan: -12, actual_tilt: -5, status: "COMPLETED" },
+  }
 ];
+
+export function regenerateRecentTimestamps(events: DecisionEvent[]) {
+  const now = Date.now();
+  const spanMs = 6 * 60 * 60 * 1000 - 2 * 60 * 1000;
+  const intervalMs = spanMs / Math.max(1, events.length - 1);
+  
+  events.forEach((evt, i) => {
+    const offset = 2 * 60 * 1000 + i * intervalMs;
+    const newTime = new Date(now - offset);
+    evt.timestamp = newTime.toISOString();
+    const dateStr = evt.timestamp.split('T')[0];
+    evt.PK = `EVENT#${dateStr}`;
+    evt.SK = `${evt.timestamp}#${evt.request_id.slice(0,8)}`;
+  });
+}
+
+regenerateRecentTimestamps(mockEvents);
+
+import { createEventStream } from './eventGenerator';
+export const eventStream = createEventStream(mockEvents);

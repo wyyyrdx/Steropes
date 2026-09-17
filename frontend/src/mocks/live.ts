@@ -17,3 +17,6 @@ export const mockLiveState: LiveMonitoringState = {
   currentAction: "ACCEPT",
   streamUrl: null,
 };
+
+import { createLiveStream } from './liveGenerator';
+export const liveStream = createLiveStream();
