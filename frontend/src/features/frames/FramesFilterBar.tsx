@@ -1,8 +1,10 @@
 import React from 'react';
+import { RotateCcw } from 'lucide-react';
 import type { EventFilters } from '@/types';
-import { DateRangePicker, Button } from '@/components/ui';
+import { Button } from '@/components/ui';
 import TierFilter from './TierFilter';
 import ActionFilter from './ActionFilter';
+import DateRangePicker from './DateRangePicker';
 import './FramesFilterBar.css';
 
 interface FramesFilterBarProps {
@@ -18,48 +20,45 @@ export default function FramesFilterBar({
   onReset,
   resultCount
 }: FramesFilterBarProps) {
-  
   return (
     <section className="frames-filter-bar" role="group" aria-label="Frame filters">
-      <div className="frames-filter-controls">
-        <div className="filter-item">
-          <span className="filter-label">Tier</span>
-          <TierFilter 
-            value={filters.tier ?? null} 
-            onChange={(tier) => onChange({ ...filters, tier })}
-          />
-        </div>
-
-        <div className="filter-item">
-          <span className="filter-label">Date Range</span>
-          <DateRangePicker 
-            from={filters.from} 
-            to={filters.to}
-            onChange={(from, to) => onChange({ ...filters, from, to })}
-          />
-        </div>
-
-        <div className="filter-item action-filter-container">
-          <span className="filter-label">Action</span>
+      <div className="filter-row-1">
+        <TierFilter 
+          value={filters.tier ?? null} 
+          onChange={(tier) => onChange({ ...filters, tier })}
+        />
+        <DateRangePicker 
+          from={filters.from} 
+          to={filters.to}
+          onChange={(from, to) => onChange({ ...filters, from, to })}
+        />
+        <div className="action-control-stack">
           <ActionFilter 
             value={filters.action ?? null}
             onChange={(action) => onChange({ ...filters, action })}
           />
           <span className="filter-helper">Filtered from loaded results</span>
         </div>
-
-        <div className="filter-actions">
-          <Button variant="outline" onClick={onReset}>
-            Reset
-          </Button>
-        </div>
       </div>
+      
+      <div className="filter-row-2">
+        <Button 
+          variant="secondary" 
+          size="sm"
+          icon={RotateCcw}
+          onClick={onReset}
+          className="filter-reset-btn"
+        >
+          Reset
+        </Button>
 
-      {resultCount !== undefined && (
-        <div className="frames-filter-results">
-          Showing {resultCount} event{resultCount !== 1 ? 's' : ''}
-        </div>
-      )}
+        {resultCount !== undefined && (
+          <div className="filter-results-count" aria-live="polite">
+            <span className="count-number">{resultCount}</span>
+            <span className="count-label">{resultCount === 1 ? 'event' : 'events'}</span>
+          </div>
+        )}
+      </div>
     </section>
   );
 }

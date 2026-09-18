@@ -1,0 +1,54 @@
+[data-theme="light"],
+:root[data-theme="light"] {
+  /* ── Backgrounds ── */
+  --color-bg-base:          #f8f9fc;
+  --color-bg-surface:       #ffffff;
+  --color-bg-elevated:      #ffffff;
+  --color-bg-subtle:        #f1f3f9;
+
+  /* ── Borders ── */
+  --color-border:           #e2e4eb;
+  --color-border-strong:    #c8cbd6;
+
+  /* ── Text ── */
+  --color-text-primary:     #1a1d2e;
+  --color-text-secondary:   #5b6078;
+  --color-text-muted:       #8b90a5;
+  --color-text-inverse:     #ffffff;
+
+  /* ── Brand / Primary ── */
+  --color-primary:          #6366f1;
+  --color-primary-hover:    #4f46e5;
+  --color-primary-subtle:   #eef2ff;
+
+  /* ── Status Colors ── */
+  --color-success:          #16a34a;
+  --color-success-bg:       #dcfce7;
+  --color-warning:          #d97706;
+  --color-warning-bg:       #fef3c7;
+  --color-error:            #dc2626;
+  --color-error-bg:         #fee2e2;
+  --color-info:             #0284c7;
+  --color-info-bg:          #e0f2fe;
+  --color-neutral:          #6b7280;
+  --color-neutral-bg:       #f3f4f6;
+
+  /* ── Tier Colors ── */
+  --color-tier-1:           #16a34a;
+  --color-tier-1-bg:        #dcfce7;
+  --color-tier-2:           #d97706;
+  --color-tier-2-bg:        #fef3c7;
+  --color-tier-3:           #dc2626;
+  --color-tier-3-bg:        #fee2e2;
+
+  /* ── Chart Colors ── */
+  --chart-tier-1:           #16a34a;
+  --chart-tier-2:           #d97706;
+  --chart-tier-3:           #dc2626;
+  --chart-avoided:          #6366f1;
+  --chart-grid:             #e2e4eb;
+
+  /* ── Header & Overlays ── */
+  --color-header-bg:        rgba(248, 249, 252, 0.85);
+  --modal-backdrop-opacity: 0.4;
+}

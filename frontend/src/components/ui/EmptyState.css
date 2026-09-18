@@ -27,14 +27,4 @@
 
 .empty-state-action {
   margin-top: var(--space-4);
-  background-color: var(--color-primary);
-  color: var(--color-text-inverse);
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-md);
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-}
-.empty-state-action:hover {
-  opacity: 0.9;
 }

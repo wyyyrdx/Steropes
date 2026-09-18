@@ -8,21 +8,27 @@
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
+  height: 100%;
   min-height: 120px;
+  justify-content: start;
 }
 
 .metric-card.accent-green {
   border-top: 3px solid var(--color-success);
 }
+
 .metric-card.accent-amber {
   border-top: 3px solid var(--color-warning);
 }
+
 .metric-card.accent-red {
   border-top: 3px solid var(--color-error);
 }
+
 .metric-card.accent-indigo {
   border-top: 3px solid var(--color-primary);
 }
+
 .metric-card.accent-default {
   border-top: 3px solid transparent;
 }

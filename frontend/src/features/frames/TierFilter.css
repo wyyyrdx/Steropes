@@ -3,32 +3,39 @@
   background-color: var(--color-bg-base);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
-  overflow: hidden;
+  height: var(--filter-control-height, 36px);
+  box-sizing: border-box;
+  padding: var(--space-1);
+  gap: var(--space-1);
 }
 
 .tier-filter-btn {
   background: transparent;
   border: none;
-  border-right: 1px solid var(--color-border);
-  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  padding: 0 var(--space-4);
   font-size: var(--text-body-sm);
+  font-weight: 500;
   color: var(--color-text-secondary);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  white-space: nowrap;
+  height: 100%;
 }
 
-.tier-filter-btn:last-child {
-  border-right: none;
-}
-
-.tier-filter-btn:hover {
+.tier-filter-btn:hover:not(.active) {
   background-color: var(--color-bg-subtle);
   color: var(--color-text-primary);
 }
 
 .tier-filter-btn.active {
   background-color: var(--color-primary);
-  color: var(--color-bg-base);
+  color: var(--color-text-inverse);
+  font-weight: 600;
 }
 
 @media (max-width: 767px) {
@@ -38,6 +45,6 @@
   }
   .tier-filter-btn {
     flex: 1;
-    padding: var(--space-2);
+    padding: 0 var(--space-2);
   }
 }

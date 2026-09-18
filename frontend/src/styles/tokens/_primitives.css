@@ -1,0 +1,58 @@
+:root {
+  /* ── Raw Primitives ── */
+  /* Brand / Indigo */
+  --raw-indigo-50:  #eef2ff;
+  --raw-indigo-400: #818cf8;
+  --raw-indigo-500: #6366f1;
+  --raw-indigo-600: #4f46e5;
+  --raw-indigo-900: #1e2050;
+
+  /* Tier 1 / Success / Green */
+  --raw-green-100:  #dcfce7;
+  --raw-green-400:  #4ade80;
+  --raw-green-500:  #22c55e;
+  --raw-green-600:  #16a34a;
+
+  /* Tier 2 / Warning / Amber */
+  --raw-amber-100:  #fef3c7;
+  --raw-amber-400:  #fbbf24;
+  --raw-amber-500:  #f59e0b;
+  --raw-amber-600:  #d97706;
+
+  /* Tier 3 / Error / Red */
+  --raw-red-100:    #fee2e2;
+  --raw-red-400:    #f87171;
+  --raw-red-500:    #ef4444;
+  --raw-red-600:    #dc2626;
+
+  /* Info / Sky */
+  --raw-sky-100:    #e0f2fe;
+  --raw-sky-400:    #38bdf8;
+  --raw-sky-600:    #0284c7;
+
+  /* Neutral / Gray */
+  --raw-gray-100:   #f3f4f6;
+  --raw-gray-400:   #9ca3af;
+  --raw-gray-500:   #6b7280;
+
+  /* Dark Theme Surfaces & Text (Slate) */
+  --raw-slate-950:  #0d0f1a;
+  --raw-slate-900:  #13162b;
+  --raw-slate-850:  #1a1d35;
+  --raw-slate-800:  #1f2340;
+  --raw-slate-700:  #2a2d4a;
+  --raw-slate-600:  #3a3d5c;
+  --raw-slate-100:  #e8eaf6;
+  --raw-slate-300:  #a0a3b8;
+  --raw-slate-400:  #6b6f8a;
+
+  /* Light Theme Surfaces & Text */
+  --raw-gray-base:  #f8f9fc;
+  --raw-gray-alt:   #f1f3f9;
+  --raw-border:     #e2e4eb;
+  --raw-border-alt: #c8cbd6;
+  --raw-text-main:  #1a1d2e;
+  --raw-text-sub:   #5b6078;
+  --raw-text-sub2:  #8b90a5;
+  --raw-white:      #ffffff;
+}
